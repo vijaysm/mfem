@@ -1,12 +1,14 @@
-# Summary #
+# Serial tutorial for MFEM
+
+# Summary
 
 This tutorial illustrates the building and sample use of the following MFEM serial example codes:
-  * [Example 1](#Example_1.md)
-  * [Example 2](#Example_2.md)
-  * [Example 3](#Example_3.md)
-An interactive documentation of all example codes is available [here](http://doxygen.mfem.googlecode.com/hg/examples/README_files/index.html).
+  - [Example 1](#Example_1)
+  - [Example 2](#Example_2)
+  - [Example 3](#Example_3)
+An interactive documentation of all example codes is available [here](http://doxygen.mfem.googlecode.com/hg/examples/README_files/index.html). 
 
-# Building #
+# Building
 
 Follow the [serial instructions](http://code.google.com/p/mfem/wiki/Building#Details) to build the MFEM library and to start a GLVis server. The latter is the recommended visualization software for MFEM (though its use is optional).
 
@@ -25,7 +27,8 @@ g++ -O3 -I.. ex9.cpp -o ex9 -L.. -lmfem
 g++ -O3 -I.. ex10.cpp -o ex10 -L.. -lmfem
 ```
 
-# Example 1 #
+# Example 1
+
 This example code demonstrates the use of MFEM to define a simple
 linear finite element discretization of the Laplace problem
 -Delta u = 1 with homogeneous Dirichlet boundary conditions. To run it, simply specify the input mesh file (which will be refined to a final mesh with no more than 50,000 elements):
@@ -42,12 +45,12 @@ Average reduction factor = 0.857127
 ```
 If a GLVis server is running, the computed finite element solution will appear in an interactive window:
 
-![http://mfem.googlecode.com/files/ex1-star.png](http://mfem.googlecode.com/files/ex1-star.png)
+http://mfem.googlecode.com/files/ex1-star.png
 
 You can examine the solution using the mouse and the GLVis [command keystrokes](http://glvis.googlecode.com/hg/README).
 Pressing "`RAfjlmm`", for example, will give us a 2D view without light or perspective showing the computed level lines:
 
-![http://mfem.googlecode.com/files/ex1-star-2.png](http://mfem.googlecode.com/files/ex1-star-2.png)
+http://mfem.googlecode.com/files/ex1-star-2.png
 
 This example saves two files called `refined.mesh` and `sol.gf`, which represent the refined mesh and the computed solution as a grid function. These can be visualized with `glvis -m refined.mesh -g sol.gf` as discussed [here](http://code.google.com/p/glvis/wiki/OptionsAndUse#Visualizing_functions).
 
@@ -64,11 +67,12 @@ Example 1 can be run on any mesh that is supported by MFEM, including 3D, curvil
 Average reduction factor = 0.610261
 ```
 
-![http://mfem.googlecode.com/files/ex1-fichera-q2.png](http://mfem.googlecode.com/files/ex1-fichera-q2.png)
+http://mfem.googlecode.com/files/ex1-fichera-q2.png
 
 The picture above shows the solution with level lines plotted in normal direction of a cutting plane, and was produced by typing "`AaafmIMMooo`" followed by cutting plane adjustments with "`z`", "`y`" and "`w`".
 
-# Example 2 #
+# Example 2
+
 This example code solves a simple linear elasticity problem describing a multi-material Cantilever beam. Note that the input mesh should have at least two materials and two boundary attributes as shown below:
 ```
                +----------+----------+
@@ -96,7 +100,7 @@ Average reduction factor = 0.989508
 ```
 The output shows the (curved) displaced mesh together with the inverse displacement vector field:
 
-![http://mfem.googlecode.com/files/ex2-beam-quad2.png](http://mfem.googlecode.com/files/ex2-beam-quad2.png)
+http://mfem.googlecode.com/files/ex2-beam-quad2.png
 
 The above plot can be alternatively produced with:
 ```
@@ -119,9 +123,10 @@ Average reduction factor = 0.978648
 
 One can visualize the vector field, e.g., by pressing "`dbAfmeoooovvaa`" followed by scale and position adjustments with the mouse:
 
-![http://mfem.googlecode.com/files/ex2-beam-tet.png](http://mfem.googlecode.com/files/ex2-beam-tet.png)
+http://mfem.googlecode.com/files/ex2-beam-tet.png
 
-# Example 3 #
+# Example 3
+
 This example code solves a simple 3D electromagnetic diffusion problem corresponding to the second order definite Maxwell equation curl curl E + E = f discretized with the lowest order Nedelec finite elements. It computes the approximation error with a know exact solution, and requires a 3D input mesh:
 ```
 ~/mfem/examples> ex3 -m ../data/fichera.mesh
@@ -139,7 +144,7 @@ Average reduction factor = 0.911811
 
 To visualize the magnitude of the solution with the proportionally-sized vector field shown only on the boundary of the domain, type "`Vfooogt`" in the GLVis window (or run `glvis -m refined.mesh -g sol.gf -k "Vfooogt"`):
 
-![http://mfem.googlecode.com/files/ex3-fichera-1.png](http://mfem.googlecode.com/files/ex3-fichera-1.png)
+http://mfem.googlecode.com/files/ex3-fichera-1.png
 
 Curved meshes are also supported:
 ```
@@ -157,11 +162,11 @@ Average reduction factor = 0.921741
 
 ```
 
-![http://mfem.googlecode.com/files/ex3-fichera-q3-2.png](http://mfem.googlecode.com/files/ex3-fichera-q3-2.png)
+http://mfem.googlecode.com/files/ex3-fichera-q3-2.png
 
 To visualize the entire vector field, type "`fooogtevv`" instead, which will use uniform sized arrows colored according to their magnitude. Here is the corresponding plot from "`ex3 -m ../data/beam-hex.mesh`":
 
-![http://mfem.googlecode.com/files/ex3-beam-hex-2.png](http://mfem.googlecode.com/files/ex3-beam-hex-2.png)
+http://mfem.googlecode.com/files/ex3-beam-hex-2.png
 
 Since entire vector fields in 3D might be difficult to see, a good alternative might be to plot the separate components of the field as scalar functions. For example:
 ```
@@ -180,6 +185,6 @@ Average reduction factor = 0.917548
 ~/mfem/examples> glvis -m refined.mesh -g sol.gf -gc 0 -k "gooottF"
 ```
 
-![http://mfem.googlecode.com/files/ex3-escher-sc0.png](http://mfem.googlecode.com/files/ex3-escher-sc0.png)
+http://mfem.googlecode.com/files/ex3-escher-sc0.png
 
 The discontinuity of the Nedelec functions is clearly seen in the above plot.
