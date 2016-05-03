@@ -3,7 +3,7 @@
 // reserved. See file COPYRIGHT for details.
 //
 // This file is part of the MFEM library. For more information and source code
-// availability see http://mfem.googlecode.com.
+// availability see http://mfem.org.
 //
 // MFEM is free software; you can redistribute it and/or modify it under the
 // terms of the GNU Lesser General Public License (as published by the Free
@@ -30,10 +30,30 @@ public:
    void Init() { x = y = z = weight = 0.0; }
 
    void Set(const double *p, const int dim)
-   { x = p[0]; if (dim > 1) { y = p[1]; if (dim > 2) z = p[2]; } }
+   {
+      x = p[0];
+      if (dim > 1)
+      {
+         y = p[1];
+         if (dim > 2)
+         {
+            z = p[2];
+         }
+      }
+   }
 
    void Get(double *p, const int dim) const
-   { p[0] = x; if (dim > 1) { p[1] = y; if (dim > 2) p[2] = z; } }
+   {
+      p[0] = x;
+      if (dim > 1)
+      {
+         p[1] = y;
+         if (dim > 2)
+         {
+            p[2] = z;
+         }
+      }
+   }
 
    void Set(const double x1, const double x2, const double x3, const double w)
    { x = x1; y = x2; z = x3; weight = w; }
@@ -192,11 +212,17 @@ public:
    explicit IntegrationRule(int NP) : Array<IntegrationPoint>(NP)
    {
       for (int i = 0; i < this->Size(); i++)
+      {
          (*this)[i].Init();
+      }
    }
 
    /// Tensor product of two 1D integration rules
    IntegrationRule(IntegrationRule &irx, IntegrationRule &iry);
+
+   /// Tensor product of three 1D integration rules
+   IntegrationRule(IntegrationRule &irx, IntegrationRule &iry,
+                   IntegrationRule &irz);
 
    /// Returns the number of the points in the integration rule
    int GetNPoints() const { return Size(); }
@@ -227,7 +253,9 @@ private:
    void AllocIntRule(Array<IntegrationRule *> &ir_array, int Order)
    {
       if (ir_array.Size() <= Order)
+      {
          ir_array.SetSize(Order + 1, NULL);
+      }
    }
    bool HaveIntRule(Array<IntegrationRule *> &ir_array, int Order)
    {
