@@ -103,6 +103,8 @@ INCFLAGS = -I@MFEM_INC_DIR@
 # Link flags used by MFEM: library link flags plus LDFLAGS (added last)
 ALL_LIBS = -L@MFEM_LIB_DIR@ -lmfem
 
+UNAME_S := $(shell uname -s)
+
 # The default value of CXXFLAGS is based on the value of MFEM_DEBUG
 MFEM_DEBUG ?= NO
 ifeq ($(MFEM_DEBUG),YES)
@@ -118,9 +120,12 @@ HYPRE_LIB ?= -L$(HYPRE_DIR)/lib -lHYPRE
 # METIS library configuration
 METIS_DIR ?= @MFEM_DIR@/../metis-4.0
 METIS_OPT ?=
-METIS_LIB ?= -L$(METIS_DIR) -lmetis
-
 MFEM_USE_METIS_5 ?= NO
+ifneq ($(MFEM_USE_METIS_5),YES)
+METIS_LIB ?= -L$(METIS_DIR) -lmetis
+else
+METIS_LIB ?= -L$(METIS_DIR)/lib -lmetis
+endif
 
 MFEM_USE_MPI ?= NO
 ifneq ($(MFEM_USE_MPI),YES)
@@ -221,6 +226,10 @@ MFEM_BUILD_TAG ?= $(shell uname -snm)
 MFEM_PREFIX    ?= $(PREFIX)
 MFEM_INC_DIR   ?= @MFEM_DIR@
 MFEM_LIB_DIR   ?= @MFEM_DIR@
+
+ifeq ($(UNAME_S),Darwin)
+	MFEM_LIBS += -framework veclib
+endif
 
 # If we have 'config' target, export variables used by config/makefile
 ifneq (,$(filter config,$(MAKECMDGOALS)))
